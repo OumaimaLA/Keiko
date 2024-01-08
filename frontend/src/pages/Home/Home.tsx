@@ -13,7 +13,7 @@ export const Home = () => {
         <img
             src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png"/>
         <p>Name: {name}</p>
-        <p>Number: {Number}</p>
+        <p>Number: {Number} </p>
       </div>
     </div>
   )

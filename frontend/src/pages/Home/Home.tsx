@@ -1,27 +1,26 @@
 import { Pokemon } from "components/Pokemon";
 import styles from "./Home.module.css"
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface Pokemon {
   name: string
   id: number
 }
+
+interface PokemonInfo {
+  id: number
+  name: string
+  heigth: number
+  weght: number
+}
 export const Home = () => {
   const [pokemonFilterValue, setPokemonFilterValue] = useState<string>('');
-  const [pokemonList] = useState<Pokemon[]>([
-    {
-      name: 'Carapuce',
-      id: 7,
-    },
-    {
-      name: 'Carbaffe',
-      id: 8,
-    },
-    {
-      name: 'Tortank',
-      id: 9,
-    },
-  ]);
+  
+  useEffect(() => {
+    fetchPokemons();
+  }, []);
+  
+  const [pokemonList, updatePokemonList ] = useState<PokemonInfo[]>([]);
   
   // function filtre
   function filterPokemonsByName(pokemons: Pokemon[], name: string){
@@ -42,7 +41,24 @@ export const Home = () => {
     setPokemonFilterValue(event.target.value);
   };
   
+  // Fonction
+  const fetchPokemons = () => {
+    fetch('http://localhost:8000/pokemons')
+    .then((response) => {
+      if (!response.ok) {
+          throw new Error('Erreur lors de la récupération des données.');
+      }
+      return response.json();
+    })
+    .then((data) => {
+      updatePokemonList(data);
+    })
+    .catch((error) => {
+      console.error('Erreur:', error);
+    })
+  } 
   return (
+
     <div className={styles.intro}>
       <div>Bienvenue sur ton futur pokédex !</div>
       <div>Tu vas pouvoir apprendre tout ce qu'il faut sur React et attraper des pokemons !</div>

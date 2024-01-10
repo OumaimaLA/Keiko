@@ -1,0 +1,8 @@
+/* pokemon style */
+.PokemonContent {
+    border: 6px double; 
+    margin: 10px;
+    text-align: center;
+    padding: 10px;
+}
+

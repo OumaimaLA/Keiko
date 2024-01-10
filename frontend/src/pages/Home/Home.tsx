@@ -1,4 +1,5 @@
 import { Pokemon } from "components/Pokemon";
+import { Loader } from "components/Loader";
 import styles from "./Home.module.css"
 import { useState, useEffect } from "react";
 
@@ -17,6 +18,8 @@ interface PokemonInfo {
 }
 export const Home = () => {
   const [pokemonFilterValue, setPokemonFilterValue] = useState<string>('');
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string>('');
   
   useEffect(() => {
     fetchPokemons();
@@ -33,7 +36,7 @@ export const Home = () => {
   const renderPokemonList = (list: Pokemon[]) => (
     <div className={styles.flexcontent}>
       {list.map((pokemon) => (
-        <Pokemon name={pokemon.name} id={pokemon.id} height={pokemon.height} weight={pokemon.weight}/>
+        <Pokemon key={pokemon.id} name={pokemon.name} id={pokemon.id} height={pokemon.height} weight={pokemon.weight}/>
       ))}
     </div>
   );
@@ -48,9 +51,12 @@ export const Home = () => {
     })
     .then((data) => {
       updatePokemonList(data);
+      setIsLoading(false);
     })
     .catch((error) => {
       console.error('Erreur:', error);
+      setError("Erreur lors de la récupération des données.");
+      setIsLoading(false)
     })
   } 
   return (
@@ -58,9 +64,9 @@ export const Home = () => {
     <div className={styles.intro}>
       <h1>Pokedex</h1>
       {/* Rechercher */}
-      
       {/* Liste des Pokémon */}
-      {renderPokemonList(filteredPokemonList)}
+      {/* {isLoading ? <Loader /> : renderPokemonList(filteredPokemonList)} */}
+      {isLoading ? (<Loader />) : error ? (<p>{error}</p>) : (renderPokemonList(filteredPokemonList))}
 
     </div>
   )

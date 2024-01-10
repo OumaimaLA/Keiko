@@ -4,6 +4,7 @@
   align-items: center;
   flex-direction: column;
   padding: 10px;
+
 }
 
 .input {
@@ -11,4 +12,9 @@
   border-style: inset;
   border-color: rgb(118, 118, 118);
   border-image: initial;
+}
+.flexcontent {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }

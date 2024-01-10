@@ -5,13 +5,15 @@ import { useState, useEffect } from "react";
 interface Pokemon {
   name: string
   id: number
+  height: number
+  weight: number
 }
 
 interface PokemonInfo {
   id: number
   name: string
-  heigth: number
-  weght: number
+  height: number
+  weight: number
 }
 export const Home = () => {
   const [pokemonFilterValue, setPokemonFilterValue] = useState<string>('');
@@ -29,18 +31,12 @@ export const Home = () => {
   const filteredPokemonList = filterPokemonsByName(pokemonList, pokemonFilterValue);
   //List des pokemons
   const renderPokemonList = (list: Pokemon[]) => (
-    <ul>
+    <div className={styles.flexcontent}>
       {list.map((pokemon) => (
-      <li key={pokemon.id}><Pokemon name={pokemon.name} id={pokemon.id} key={pokemon.id} /></li>
+        <Pokemon name={pokemon.name} id={pokemon.id} height={pokemon.height} weight={pokemon.weight}/>
       ))}
-    </ul>
+    </div>
   );
-
-  // change value input
-  const onInputChangePokemon = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPokemonFilterValue(event.target.value);
-  };
-  
   // Fonction
   const fetchPokemons = () => {
     fetch('http://localhost:8000/pokemons')
@@ -60,14 +56,12 @@ export const Home = () => {
   return (
 
     <div className={styles.intro}>
-      <div>Bienvenue sur ton futur pokédex !</div>
-      <div>Tu vas pouvoir apprendre tout ce qu'il faut sur React et attraper des pokemons !</div>
+      <h1>Pokedex</h1>
       {/* Rechercher */}
-      <div><input className={styles.input} onChange={onInputChangePokemon} 
-      value={pokemonFilterValue} placeholder="Rechercher..."/></div>
       
       {/* Liste des Pokémon */}
       {renderPokemonList(filteredPokemonList)}
+
     </div>
   )
 }

@@ -19,24 +19,23 @@ export const PokemonApi = () => {
         fetchPokemons();
     }, []);
 
-    const fetchPokemons = () => {
-        fetch('http://localhost:8000/pokemons')
-        .then((response) => {
+
+    const fetchPokemons = async () => {
+        try {
+            const response = await fetch('http://localhost:8000/pokemons')
             if (!response.ok) {
                 throw new Error('Erreur lors de la récupération des données.');
             }
-            return response.json();
-        })
-        .then((data) => {
+
+            const data = await response.json();
             setPokemonList(data);
             setIsLoading(false);
-        })
-        .catch((error) => {
-            console.error('Erreur:', error);
+        } catch (error) {
+            console.error('Erreur:', error)
             setError('Erreur lors de la récupération des données.');
             setIsLoading(false);
-        });
-    };
+        }
+    }
     return (
         <div className={styles.intro}>
             <h1>Pokedex</h1>

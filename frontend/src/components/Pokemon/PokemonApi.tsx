@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { PokemonList } from "./PokemonList";
 import { Loader } from "components/Loader";
-import styles from "pages/Home/Home.module.css"
 
 interface PokemonInfo {
     id: number;
@@ -9,20 +8,23 @@ interface PokemonInfo {
     height: number;
     weight: number;
 }
+interface PokemonApiProps {
+    page: number;
+}
 
-export const PokemonApi = () => {
+export const PokemonApi: React.FC<PokemonApiProps> = ({ page }) => {
     const [pokemonList, setPokemonList] = useState<PokemonInfo[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string>('');
     
     useEffect(() => {
-        fetchPokemons();
-    }, []);
+        fetchPokemons(Number(page));
+    }, [page]);
 
 
     const fetchPokemons = async () => {
         try {
-            const response = await fetch('http://localhost:8000/pokemons')
+            const response = await fetch(`http://localhost:8000/pokemons?page=${page}`)
             if (!response.ok) {
                 throw new Error('Erreur lors de la récupération des données.');
             }
@@ -37,8 +39,7 @@ export const PokemonApi = () => {
         }
     }
     return (
-        <div className={styles.intro}>
-            <h1>Pokedex</h1>
+        <div>
             {isLoading ? <Loader />: error ? <p>{error}</p> : <PokemonList pokemons={pokemonList} />}
         </div>
     );

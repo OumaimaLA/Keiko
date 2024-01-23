@@ -1,35 +1,26 @@
 import { useState, useEffect } from "react";
-import { PokemonList } from "./PokemonList";
+import { PokemonList } from "./PokemonList/PokemonList";
 import { Loader } from "components/Loader";
+import { PokemonInfoProps } from "../Domaine/PokemonProps";
+import { fetchPokemons } from "../Data/FetchPokemons";
 
-interface PokemonInfo {
-    id: number;
-    name: string;
-    height: number;
-    weight: number;
-}
 interface PokemonApiProps {
     page: number;
 }
 
-export const PokemonApi: React.FC<PokemonApiProps> = ({ page }) => {
-    const [pokemonList, setPokemonList] = useState<PokemonInfo[]>([]);
+export const PokedexPage: React.FC<PokemonApiProps> = ({ page }) => {
+    const [pokemonList, setPokemonList] = useState<PokemonInfoProps[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string>('');
     
     useEffect(() => {
-        fetchPokemons(Number(page));
+        fetchData();
     }, [page]);
 
 
-    const fetchPokemons = async () => {
+    const fetchData = async () => {
         try {
-            const response = await fetch(`http://localhost:8000/pokemons?page=${page}`)
-            if (!response.ok) {
-                throw new Error('Erreur lors de la récupération des données.');
-            }
-
-            const data = await response.json();
+            const data = await fetchPokemons(page);
             setPokemonList(data);
             setIsLoading(false);
         } catch (error) {

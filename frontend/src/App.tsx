@@ -9,8 +9,9 @@ export const App = () => {
     <Root>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/pokemon/:id" element={<PokemonDetail />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/pokedex/:page" element={<Home />} />
+        <Route path="/pokemon/:id" element={<PokemonDetail />} />
         </Routes>
       </BrowserRouter>
     </Root>

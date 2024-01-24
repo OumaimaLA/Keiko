@@ -3,12 +3,13 @@ import { PokemonList } from "./PokemonList/PokemonList";
 import { Loader } from "components/Loader";
 import { PokemonInfoProps } from "../Domaine/PokemonProps";
 import { fetchPokemons } from "../Data/FetchPokemons";
+import { Animate } from "components/Animate/Animate";
 
 interface PokemonApiProps {
     page: number;
 }
 
-export const PokedexPage: React.FC<PokemonApiProps> = ({ page }) => {
+const PokemonComponent: React.FC<PokemonApiProps> = ({ page }) => {
     const [pokemonList, setPokemonList] = useState<PokemonInfoProps[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string>('');
@@ -35,5 +36,7 @@ export const PokedexPage: React.FC<PokemonApiProps> = ({ page }) => {
         </div>
     );
 };
+export const PokedexPage = Animate<PokemonApiProps>('wobble')(PokemonComponent);
+
 
 

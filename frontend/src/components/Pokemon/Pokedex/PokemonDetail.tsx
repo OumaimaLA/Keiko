@@ -5,8 +5,9 @@ import styles from 'pages/Home/Home.module.css';
 import { fetchPokemonDetails } from 'components/Pokemon/Data/FetchPokemons';
 import { PokemonInfoProps } from 'components/Pokemon/Domaine/PokemonProps';
 import { PokemonImage } from '../Domaine/PokemonImage';
+import { Animate } from 'components/Animate/Animate';
 
-export const PokemonDetails = () => {
+const PokemonDetailsComponent = () => {
     const { id } = useParams();
     const [pokemon, setPokemon] = useState<PokemonInfoProps | null>(null);
     const [isLoading, setIsLoading] = useState(true);
@@ -57,3 +58,5 @@ export const PokemonDetails = () => {
         </div>
     );
 };
+
+export const PokemonDetails = Animate<PokemonInfoProps>('wobble')(PokemonDetailsComponent);

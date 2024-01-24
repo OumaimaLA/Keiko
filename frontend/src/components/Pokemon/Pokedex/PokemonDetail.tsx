@@ -3,19 +3,18 @@ import { useParams } from 'react-router-dom';
 import { Loader } from 'components/Loader';
 import styles from 'pages/Home/Home.module.css';
 import { fetchPokemonDetails } from 'components/Pokemon/Data/FetchPokemons';
-import { PokemonInfoProps } from 'components/Pokemon/Domaine/PokemonProps';
+import { PokemonCaracteristique } from 'components/Pokemon/Domaine/PokemonProps';
 import { PokemonImage } from '../Domaine/PokemonImage';
-import { Animate } from 'components/Animate/Animate';
 
-const PokemonDetailsComponent = () => {
+export const PokemonDetails = () => {
     const { id } = useParams();
-    const [pokemon, setPokemon] = useState<PokemonInfoProps | null>(null);
+    const [pokemon, setPokemon] = useState<PokemonCaracteristique | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string>('');
 
     
     useEffect(() => {
-        const fetchData = async () => {
+        const LoadPokemonDetail = async () => {
             try {
                 const data = await fetchPokemonDetails(id);
                 setPokemon(data);
@@ -26,7 +25,7 @@ const PokemonDetailsComponent = () => {
                 setIsLoading(false);
             }
         };
-        fetchData();
+        LoadPokemonDetail();
     }, [id]);
 
     if (isLoading) {
@@ -59,4 +58,3 @@ const PokemonDetailsComponent = () => {
     );
 };
 
-export const PokemonDetails = Animate<PokemonInfoProps>('wobble')(PokemonDetailsComponent);

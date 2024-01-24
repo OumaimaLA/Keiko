@@ -1,8 +1,8 @@
 import { PokemonImage } from './Domaine/PokemonImage';
-import { PokemonInfoProps } from './Domaine/PokemonProps';
+import { PokemonCaracteristique } from './Domaine/PokemonProps';
 import style from './Pokemon.module.css'
 
-export const Pokemon = ({name, id, weight, height}: PokemonInfoProps) => {
+export const Pokemon = ({name, id, weight, height}: PokemonCaracteristique) => {
     return (
         <div className={style.PokemonContent}>
                 <p>{name}</p>

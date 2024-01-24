@@ -1,10 +1,11 @@
-import { Sprites_Base_Url } from "./Constant";
-import { PokemonImageProps } from "./PokemonProps";
+import { Animate } from "components/Animate";
+import { SPRITES_BASE_URL } from "./Constant";
+import { PokemonImageCaraceteristique } from "./PokemonProps";
 
-export const PokemonImage: React.FC<PokemonImageProps> = ({ type, id, name, isShiny = false}) => {
+const PokemonImageComponent: React.FC<PokemonImageCaraceteristique> = ({ type, id, name, isShiny = false}) => {
     const imageUrl = isShiny
-        ? `${Sprites_Base_Url}/${type}/shiny/${id}.png`
-        : `${Sprites_Base_Url}/${type}/${id}.png`;
+        ? `${SPRITES_BASE_URL}/${type}/shiny/${id}.png`
+        : `${SPRITES_BASE_URL}/${type}/${id}.png`;
 
     return (
         <div>
@@ -12,3 +13,5 @@ export const PokemonImage: React.FC<PokemonImageProps> = ({ type, id, name, isSh
         </div>
     );
 }
+
+export const PokemonImage = Animate<PokemonImageCaraceteristique>('wobble')(PokemonImageComponent);

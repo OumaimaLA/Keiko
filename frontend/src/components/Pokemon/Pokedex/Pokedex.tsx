@@ -1,25 +1,24 @@
 import { useState, useEffect } from "react";
 import { PokemonList } from "./PokemonList/PokemonList";
 import { Loader } from "components/Loader";
-import { PokemonInfoProps } from "../Domaine/PokemonProps";
+import { PokemonCaracteristique } from "../Domaine/PokemonProps";
 import { fetchPokemons } from "../Data/FetchPokemons";
-import { Animate } from "components/Animate/Animate";
 
 interface PokemonApiProps {
     page: number;
 }
 
-const PokemonComponent: React.FC<PokemonApiProps> = ({ page }) => {
-    const [pokemonList, setPokemonList] = useState<PokemonInfoProps[]>([]);
+export const Pokedex: React.FC<PokemonApiProps> = ({ page }) => {
+    const [pokemonList, setPokemonList] = useState<PokemonCaracteristique[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string>('');
     
     useEffect(() => {
-        fetchData();
+        LoadPokemonList();
     }, [page]);
 
 
-    const fetchData = async () => {
+    const LoadPokemonList = async () => {
         try {
             const data = await fetchPokemons(page);
             setPokemonList(data);
@@ -36,7 +35,6 @@ const PokemonComponent: React.FC<PokemonApiProps> = ({ page }) => {
         </div>
     );
 };
-export const PokedexPage = Animate<PokemonApiProps>('wobble')(PokemonComponent);
 
 
 

@@ -1,11 +1,11 @@
-export interface PokemonInfoProps {
+export interface PokemonCaracteristique {
     id: number;
     name: string;
     height: number;
     weight: number;
 }
 
-export interface PokemonImageProps {
+export interface PokemonImageCaraceteristique {
     type: string;
     id: number
     name: string

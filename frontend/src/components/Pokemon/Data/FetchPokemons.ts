@@ -1,9 +1,9 @@
-import { Pokemon_Detail, Pokemons_List } from "../Domaine/Constant";
-import { PokemonInfoProps } from "../Domaine/PokemonProps";
+import { POKEMON_DETAIL, POKEMONS_LIST } from "../Domaine/Constant";
+import { PokemonCaracteristique } from "../Domaine/PokemonProps";
 
-export const fetchPokemons = async(page?: number): Promise<PokemonInfoProps[]> => {
+export const fetchPokemons = async(page?: number): Promise<PokemonCaracteristique[]> => {
     try {
-        const response = await fetch(`${Pokemons_List}?page=${page}`);
+        const response = await fetch(`${POKEMONS_LIST}?page=${page}`);
         if (!response.ok) {
             throw new Error('Erreur lors de la récupération des données.');
         }
@@ -15,9 +15,9 @@ export const fetchPokemons = async(page?: number): Promise<PokemonInfoProps[]> =
     throw new Error('Erreur lors de la récupération des données.');
     }
 }
-export const fetchPokemonDetails = async (id: number): Promise<PokemonInfoProps> => {
+export const fetchPokemonDetails = async (id: number): Promise<PokemonCaracteristique> => {
     try {
-        const response = await fetch(`${Pokemon_Detail}/${id}`);
+        const response = await fetch(`${POKEMON_DETAIL}/${id}`);
         if (!response.ok) {
         throw new Error('Erreur lors de la récupération des données.');
         }

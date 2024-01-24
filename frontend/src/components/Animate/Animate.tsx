@@ -1,9 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from './Animate.module.css'
 
 export const Animate = <P extends object>(animation: 'tada' | 'wobble') => (
     BaseComponent: React.ComponentType<P>) => (props: P)=> {
         const [isHovered, setIsHovered] = useState(false);
+        
+        useEffect(() => {
+            setIsHovered(true);
+            return () => {
+                setIsHovered(false);
+            };
+        }, [])
 
         return (
             <div

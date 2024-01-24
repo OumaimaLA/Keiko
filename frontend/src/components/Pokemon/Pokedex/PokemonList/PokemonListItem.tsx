@@ -1,7 +1,8 @@
-import { Pokemon } from './Pokemon';
+import { Pokemon } from '../../Pokemon';
+import { PokemonInfoProps } from '../../Domaine/PokemonProps';
 
 interface PokemonListItemProps {
-    pokemon: Pokemon;
+    pokemon: PokemonInfoProps;
 }
 
 export const PokemonListItem: React.FC<PokemonListItemProps> = ({ pokemon }) => (

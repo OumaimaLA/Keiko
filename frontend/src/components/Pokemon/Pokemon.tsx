@@ -1,17 +1,12 @@
+import { PokemonImage } from './Domaine/PokemonImage';
+import { PokemonInfoProps } from './Domaine/PokemonProps';
 import style from './Pokemon.module.css'
-interface Props {
-    name: string;
-    id: number;
-    weight: number;
-    height: number;
-}
 
-export const Pokemon = ({name, id, weight, height}: Props) => {
+export const Pokemon = ({name, id, weight, height}: PokemonInfoProps) => {
     return (
         <div className={style.PokemonContent}>
                 <p>{name}</p>
-                <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`}/>
-                
+                <PokemonImage type="" id={id} name={name} />
                 <p>Number: {id}</p>
                 <p>Weight: {weight} kg</p>
                 <p>Height: {height} cm</p>
